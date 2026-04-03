@@ -21,10 +21,14 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Large Data/Results (Optional - keep if you want them in repo, ignore if they are huge)
-# *.csv
-# *.txt (Bootstrap logs)
+# Large Data/Results
 bootstrap_binning_analysis_*.txt
 
 # Ignore specific temporary directories
 efx_results_no_transformation*/
+
+# Exclude Manuscript and Meeting Slides
+paper.tex
+paper.pdf
+references.bib
+Q3 Equifax meeting slides - Zakaria Sherif.pdf
