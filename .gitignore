@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.venv_temp_plot/
+
+# LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.bbl
+*.blg
+*.toc
+*.run.xml
+*.bcf
+
+# macOS
+.DS_Store
+
+# Large Data/Results (Optional - keep if you want them in repo, ignore if they are huge)
+# *.csv
+# *.txt (Bootstrap logs)
+bootstrap_binning_analysis_*.txt
+
+# Ignore specific temporary directories
+efx_results_no_transformation*/
