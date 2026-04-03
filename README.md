@@ -42,4 +42,4 @@ python generate_paper_figures.py
 - **Dr. Joseph White** (Equifax)
 
 ## License
-[Insert License Here - e.g., MIT]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
