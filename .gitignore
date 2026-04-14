@@ -27,8 +27,21 @@ bootstrap_binning_analysis_*.txt
 # Ignore specific temporary directories
 efx_results_no_transformation*/
 
-# Exclude Manuscript and Meeting Slides
+# Exclude 
+generate_ncur_poster_pptx.py
+NCUR_Binning_Poster_42x36.pptx
+NCUR_POSTER_CONTENT.md
+NCUR_POSTER_LAYOUT.md
+NCUR_POSTER_SUMMARY.txt
 paper.tex
+Paper.png
+png-clipart-logo-scikit-learn-python-github-machine-learning-text-orange-thumbnail.png
+paper_with_params.tex
 paper.pdf
 references.bib
 Q3 Equifax meeting slides - Zakaria Sherif.pdf
+Comparative Analysis of Monotonically Enforced Univariate Binning Strategies in Classification Using Logistic Regression.pdf
+Github repo.png
+ksu logo.png
+ncurlogo.png
+hd-python-logo-symbol-transparent-png-735811696257415dbkifcuokn.png

@@ -1,5 +1,7 @@
 # Comparative Analysis of Monotonically Enforced Univariate Binning Strategies in Classification Using Logistic Regression
 
+**[Read the full paper here](https://drive.google.com/file/d/138qFLjuEHFRB20PBtrjJItD1fWLBWyuL/view?usp=sharing)**
+
 This repository contains the **source code and data pipeline** for the comparative study: *"Comparative Analysis of Monotonically Enforced Univariate Binning Strategies in Classification Using Logistic Regression."*
 
 ## Project Overview

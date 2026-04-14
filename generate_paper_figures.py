@@ -67,7 +67,7 @@ def get_colors(method_list):
 # ─── Global style ────────────────────────────────────────────────────────────
 plt.rcParams.update({
     "font.family": "serif",
-    "font.size": 11,
+    "font.size": 12,
     "axes.linewidth": 0.8,
     "axes.spines.top": False,
     "axes.spines.right": False,
@@ -82,7 +82,7 @@ plt.rcParams.update({
 # FIGURE 1 — AUROC Forest Plot
 # ═══════════════════════════════════════════════════════════════════════════════
 def fig_auroc_forest():
-    fig, ax = plt.subplots(figsize=(7, 4.5))
+    fig, ax = plt.subplots(figsize=(7.6, 4.8))
 
     y_pos = np.arange(len(methods))
     colors = get_colors(methods)
@@ -96,22 +96,22 @@ def fig_auroc_forest():
     median_auroc = np.median(auroc_mean)
     ax.axvline(median_auroc, color='#AAAAAA', linestyle='--', linewidth=0.8, zorder=1)
     ax.text(median_auroc, len(methods) - 0.3, f'Median: {median_auroc:.4f}',
-            ha='center', va='bottom', fontsize=8, color='#888888')
+            ha='center', va='bottom', fontsize=9, color='#888888')
 
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(methods, fontsize=10)
-    ax.set_xlabel("AUROC", fontsize=12)
-    ax.set_title("Bootstrap AUROC with 95% Confidence Intervals", fontsize=13, fontweight='bold', pad=12)
+    ax.set_yticklabels(methods, fontsize=11)
+    ax.set_xlabel("AUROC", fontsize=13)
+    ax.set_title("AUROC with 95% Empirical Confidence Intervals", fontsize=14, fontweight='bold', pad=12)
     ax.invert_yaxis()
 
     # Add CI text annotations
     for i in range(len(methods)):
-        ax.text(auroc_hi[i] + 0.0005, y_pos[i], f'{auroc_mean[i]:.4f}',
-                va='center', fontsize=8, color='#444444')
+        ax.text(auroc_hi[i] + 0.00055, y_pos[i], f'{auroc_mean[i]:.4f}',
+                va='center', fontsize=9, color='#444444')
 
     # Legend
     patches = [mpatches.Patch(color=c, label=t) for t, c in TYPE_COLORS.items()]
-    ax.legend(handles=patches, loc='lower right', fontsize=9, framealpha=0.9)
+    ax.legend(handles=patches, loc='upper left', fontsize=10, framealpha=0.95)
 
     ax.set_xlim(0.850, 0.895)
     plt.tight_layout()
@@ -132,7 +132,7 @@ def fig_ks_forest():
     ks_l = [ks_lo[i] for i in idx]
     ks_h = [ks_hi[i] for i in idx]
 
-    fig, ax = plt.subplots(figsize=(7, 4.5))
+    fig, ax = plt.subplots(figsize=(7.6, 4.8))
     y_pos = np.arange(len(m_sorted))
     colors = get_colors(m_sorted)
     xerr_lo = [m - lo for m, lo in zip(ks_m, ks_l)]
@@ -145,20 +145,20 @@ def fig_ks_forest():
     median_ks = np.median(ks_m)
     ax.axvline(median_ks, color='#AAAAAA', linestyle='--', linewidth=0.8, zorder=1)
     ax.text(median_ks, len(m_sorted) - 0.3, f'Median: {median_ks:.4f}',
-            ha='center', va='bottom', fontsize=8, color='#888888')
+            ha='center', va='bottom', fontsize=9, color='#888888')
 
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(m_sorted, fontsize=10)
-    ax.set_xlabel("KS Statistic", fontsize=12)
-    ax.set_title("Bootstrap KS Statistic with 95% Confidence Intervals", fontsize=13, fontweight='bold', pad=12)
+    ax.set_yticklabels(m_sorted, fontsize=11)
+    ax.set_xlabel("KS Statistic", fontsize=13)
+    ax.set_title("KS Statistic with 95% Empirical Confidence Intervals", fontsize=14, fontweight='bold', pad=12)
     ax.invert_yaxis()
 
     for i in range(len(m_sorted)):
-        ax.text(ks_h[i] + 0.0005, y_pos[i], f'{ks_m[i]:.4f}',
-                va='center', fontsize=8, color='#444444')
+        ax.text(ks_h[i] + 0.0006, y_pos[i], f'{ks_m[i]:.4f}',
+                va='center', fontsize=9, color='#444444')
 
     patches = [mpatches.Patch(color=c, label=t) for t, c in TYPE_COLORS.items()]
-    ax.legend(handles=patches, loc='lower right', fontsize=9, framealpha=0.9)
+    ax.legend(handles=patches, loc='upper left', fontsize=10, framealpha=0.95)
 
     ax.set_xlim(0.555, 0.640)
     plt.tight_layout()
@@ -178,30 +178,30 @@ def fig_ci_width():
     aw_sorted = [auroc_ci_width[i] for i in idx]
     kw_sorted = [ks_ci_width[i] for i in idx]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4.5), sharey=True)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10.8, 4.9), sharey=True)
 
     y_pos = np.arange(len(m_sorted))
     colors = get_colors(m_sorted)
 
     # AUROC CI width
     bars1 = ax1.barh(y_pos, aw_sorted, color=colors, edgecolor='white', linewidth=0.5, height=0.65)
-    ax1.set_xlabel("AUROC CI Width (97.5th − 2.5th)", fontsize=10)
-    ax1.set_title("AUROC Stability", fontsize=12, fontweight='bold')
+    ax1.set_xlabel("AUROC CI Width (97.5th − 2.5th)", fontsize=11)
+    ax1.set_title("AUROC Stability", fontsize=13, fontweight='bold')
     ax1.set_yticks(y_pos)
-    ax1.set_yticklabels(m_sorted, fontsize=10)
+    ax1.set_yticklabels(m_sorted, fontsize=11)
     for i, v in enumerate(aw_sorted):
-        ax1.text(v + 0.0003, y_pos[i], f'{v:.4f}', va='center', fontsize=8, color='#444444')
+        ax1.text(v + 0.00035, y_pos[i], f'{v:.4f}', va='center', fontsize=9, color='#444444')
 
     # KS CI width (sorted same order)
     bars2 = ax2.barh(y_pos, kw_sorted, color=colors, edgecolor='white', linewidth=0.5, height=0.65)
-    ax2.set_xlabel("KS CI Width (97.5th − 2.5th)", fontsize=10)
-    ax2.set_title("KS Stability", fontsize=12, fontweight='bold')
+    ax2.set_xlabel("KS CI Width (97.5th − 2.5th)", fontsize=11)
+    ax2.set_title("KS Stability", fontsize=13, fontweight='bold')
     for i, v in enumerate(kw_sorted):
-        ax2.text(v + 0.0005, y_pos[i], f'{v:.4f}', va='center', fontsize=8, color='#444444')
+        ax2.text(v + 0.0006, y_pos[i], f'{v:.4f}', va='center', fontsize=9, color='#444444')
 
-    fig.suptitle("Confidence Interval Width — Narrower = More Stable", fontsize=13, fontweight='bold', y=1.02)
+    fig.suptitle("Confidence Interval Width — Narrower = More Stable", fontsize=14, fontweight='bold', y=1.02)
     patches = [mpatches.Patch(color=c, label=t) for t, c in TYPE_COLORS.items()]
-    ax2.legend(handles=patches, loc='lower right', fontsize=9, framealpha=0.9)
+    ax2.legend(handles=patches, loc='lower right', fontsize=10, framealpha=0.95)
 
     plt.tight_layout()
     path = os.path.join(OUT_DIR, "fig3_ci_width_stability.png")
@@ -214,7 +214,7 @@ def fig_ci_width():
 # FIGURE 4 — AUROC vs. KS Scatter with 2D Error Bars  (numbered legend)
 # ═══════════════════════════════════════════════════════════════════════════════
 def fig_auroc_vs_ks():
-    fig, (ax, ax_leg) = plt.subplots(1, 2, figsize=(11, 6.5),
+    fig, (ax, ax_leg) = plt.subplots(1, 2, figsize=(10.8, 6.4),
                                       gridspec_kw={'width_ratios': [3, 1]})
     colors = get_colors(methods)
 
@@ -226,28 +226,29 @@ def fig_auroc_vs_ks():
         yerr = [[ks_mean[i] - ks_lo[i]], [ks_hi[i] - ks_mean[i]]]
         ax.errorbar(auroc_mean[i], ks_mean[i], xerr=xerr, yerr=yerr,
                     fmt='none', ecolor='#AAAAAA',
-                    elinewidth=0.8, capsize=3, capthick=0.8, zorder=2)
+                    elinewidth=1.0, capsize=3.5, capthick=1.0, zorder=2)
         # Colored circle marker
-        ax.plot(auroc_mean[i], ks_mean[i], 'o', color=colors[i], markersize=10,
-                markeredgecolor='white', markeredgewidth=0.8, zorder=3)
+        ax.plot(auroc_mean[i], ks_mean[i], 'o', color=colors[i], markersize=11,
+                markeredgecolor='white', markeredgewidth=0.9, zorder=3)
         # Place number label offset above-right
         ax.annotate(labels[i],
                     xy=(auroc_mean[i], ks_mean[i]),
                     xytext=(8, 8), textcoords='offset points',
-                    fontsize=9, fontweight='bold', color=colors[i],
+                    fontsize=10, fontweight='bold', color=colors[i],
                     fontfamily='sans-serif',
-                    bbox=dict(boxstyle='round,pad=0.2', fc='white', ec=colors[i],
-                              lw=0.8, alpha=0.85),
+                    bbox=dict(boxstyle='round,pad=0.22', fc='white', ec=colors[i],
+                              lw=0.9, alpha=0.88),
                     zorder=5)
 
-    ax.set_xlabel("Mean AUROC", fontsize=12)
-    ax.set_ylabel("Mean KS Statistic", fontsize=12)
+    ax.set_xlabel("Mean AUROC", fontsize=14)
+    ax.set_ylabel("Mean KS Statistic", fontsize=14)
     ax.set_title("AUROC vs. KS — Method Comparison with 95% CIs",
-                 fontsize=13, fontweight='bold', pad=12)
+                 fontsize=15, fontweight='bold', pad=12)
+    ax.tick_params(labelsize=11)
 
     # --- Legend panel (right side) ----
     ax_leg.axis('off')
-    ax_leg.set_title("Legend", fontsize=12, fontweight='bold', pad=10)
+    ax_leg.set_title("Legend", fontsize=14, fontweight='bold', pad=10)
 
     # Build legend rows: number badge, colored dot, method name
     y_start = 0.92
@@ -257,17 +258,17 @@ def fig_auroc_vs_ks():
         cat = METHOD_TYPE[m]
         c = TYPE_COLORS[cat]
         # Number badge
-        ax_leg.text(0.05, y, labels[i], fontsize=10, fontweight='bold',
+        ax_leg.text(0.05, y, labels[i], fontsize=12, fontweight='bold',
                     color=c, transform=ax_leg.transAxes, va='center',
                     ha='center', fontfamily='sans-serif',
-                    bbox=dict(boxstyle='round,pad=0.2', fc='white', ec=c,
-                              lw=0.8, alpha=0.85))
+                    bbox=dict(boxstyle='round,pad=0.22', fc='white', ec=c,
+                              lw=0.9, alpha=0.88))
         # Colored dot
-        ax_leg.plot(0.17, y, 'o', color=c, markersize=7,
+        ax_leg.plot(0.17, y, 'o', color=c, markersize=8,
                     transform=ax_leg.transAxes, markeredgecolor='white',
-                    markeredgewidth=0.5, clip_on=False)
+                    markeredgewidth=0.6, clip_on=False)
         # Method name
-        ax_leg.text(0.25, y, m, fontsize=9.5, color='#333333',
+        ax_leg.text(0.25, y, m, fontsize=11, color='#333333',
                     transform=ax_leg.transAxes, va='center')
 
     # Category sub-legend at bottom
@@ -276,7 +277,7 @@ def fig_auroc_vs_ks():
         yy = y_bot - j * 0.055
         ax_leg.plot(0.17, yy, 's', color=c, markersize=8,
                     transform=ax_leg.transAxes, clip_on=False)
-        ax_leg.text(0.25, yy, cat, fontsize=9, color='#555555',
+        ax_leg.text(0.25, yy, cat, fontsize=10.5, color='#555555',
                     transform=ax_leg.transAxes, va='center')
 
     plt.tight_layout()
@@ -334,94 +335,10 @@ def fig_ci_overlap_heatmap():
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# FIGURE 0 — Pipeline Diagram
-# ═══════════════════════════════════════════════════════════════════════════════
-def fig_pipeline():
-    fig, ax = plt.subplots(figsize=(13, 5.5))
-    ax.set_xlim(0, 13)
-    ax.set_ylim(-0.8, 4.5)
-    ax.axis('off')
-
-    # Pipeline steps
-    steps = [
-        ("Credit Dataset\n(Pre-partitioned)", "#5B8DB8"),
-        ("Bootstrap\nSampling (150k)", "#5B8DB8"),
-        ("Binning\n(10 Strategies)", "#E07B54"),
-        ("Feature\nEncoding", "#E07B54"),
-        ("Monotonic\nEnforcement", "#E07B54"),
-        ("Logistic\nRegression", "#6BAF6B"),
-        ("Evaluation\n(AUROC, KS)", "#6BAF6B"),
-    ]
-
-    box_w, box_h = 1.45, 1.3
-    gap = 0.30
-    start_x = 0.4
-    y_center = 2.8
-
-    box_positions = []
-    for i, (label, color) in enumerate(steps):
-        x = start_x + i * (box_w + gap)
-        rect = mpatches.FancyBboxPatch(
-            (x, y_center - box_h / 2), box_w, box_h,
-            boxstyle="round,pad=0.12", facecolor=color, edgecolor='white',
-            linewidth=1.5, alpha=0.9
-        )
-        ax.add_patch(rect)
-        ax.text(x + box_w / 2, y_center, label,
-                ha='center', va='center', fontsize=8.5, fontweight='bold',
-                color='white', linespacing=1.3)
-        box_positions.append(x)
-
-        # Arrow between boxes
-        if i < len(steps) - 1:
-            arrow_start = x + box_w + 0.03
-            arrow_end = x + box_w + gap - 0.03
-            ax.annotate('', xy=(arrow_end, y_center),
-                        xytext=(arrow_start, y_center),
-                        arrowprops=dict(arrowstyle='->', color='#555555', lw=1.5))
-
-    # Bootstrap loop — arc below boxes from Evaluation back to Bootstrap Sampling
-    sample_x = box_positions[1] + box_w / 2  # center of Sampling box
-    eval_x = box_positions[6] + box_w / 2     # center of Evaluation box
-    anchor_y = y_center - box_h / 2 - 0.15  # just below boxes
-
-    # Draw curved arrow that arcs BELOW (negative rad goes downward for right-to-left)
-    ax.annotate('',
-                xy=(sample_x, anchor_y),
-                xytext=(eval_x, anchor_y),
-                arrowprops=dict(arrowstyle='->', color='#C0392B', lw=2.0,
-                                connectionstyle='arc3,rad=-0.45', linestyle='--'))
-
-    ax.text((sample_x + eval_x) / 2, anchor_y - 1.05,
-            "Bootstrap Loop  ×1000",
-            ha='center', va='top', fontsize=10, fontweight='bold',
-            color='#C0392B', fontstyle='italic')
-
-    # Category labels above boxes
-    cat_y = y_center + box_h / 2 + 0.25
-    ax.text((box_positions[0] + box_positions[1] + box_w) / 2, cat_y,
-            "Data Preparation", ha='center', fontsize=9, color='#5B8DB8', fontweight='bold')
-    ax.text((box_positions[2] + box_positions[4] + box_w) / 2, cat_y,
-            "Feature Engineering", ha='center', fontsize=9, color='#E07B54', fontweight='bold')
-    ax.text((box_positions[5] + box_positions[6] + box_w) / 2, cat_y,
-            "Modeling & Evaluation", ha='center', fontsize=9, color='#6BAF6B', fontweight='bold')
-
-    ax.set_title("Experimental Pipeline", fontsize=14, fontweight='bold', pad=15, y=0.98)
-
-    plt.tight_layout()
-    path = os.path.join(OUT_DIR, "fig0_pipeline.png")
-    fig.savefig(path)
-    plt.close(fig)
-    print(f"  Saved: {path}")
-
-
-# ═══════════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 if __name__ == "__main__":
     print("Generating publication figures...\n")
-    print("[0/7] Pipeline diagram...")
-    fig_pipeline()
     print("[1/7] AUROC forest plot...")
     fig_auroc_forest()
     print("[2/7] KS forest plot...")
